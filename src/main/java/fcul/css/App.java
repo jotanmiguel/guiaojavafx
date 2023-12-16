@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -47,19 +48,42 @@ public class App extends Application {
 		CustomVBox picturesPane = new CustomVBox(10);
 		CustomHBox pictureView = new CustomHBox(10);
 		FlowPane photoTags = new FlowPane(5, 5);
-		photoTags.getChildren().addAll(Arrays.asList(new Label("tag1"), new Label("tag1"), new Label("tag1"),new Label("tag1"), new Label("tag1"),new Label("tag1"), new Label("tag1"),new Label("tag1"), new Label("tag1"), new Label("tag1"), new Label("tag1"),new Label("tag1"), new Label("tag1"),new Label("tag1"), new Label("tag1"),new Label("tag1"), new Label("tag1")));
-		// Add the ImageView to the picturesPane
-		picturesPane.addNodes(Arrays.asList(new Label("pictures"), photoTags));
+		for (int i = 1; i <= 17; i++) {
+		    Label label = new Label("tag" + i);
+
+		    // Set the click event handler for the label
+		    label.setOnMouseClicked(event -> {
+		        // Get the text from the label that was clicked and print it
+		        System.out.println("Clicked label: " + ((Label) event.getSource()).getText());
+		    });
+
+		    photoTags.getChildren().add(label);
+		}
+		picturesPane.getChildren().add(photoTags);
+
 		
 		CustomVBox rightColumn = new CustomVBox("Right", 10);
 		CustomVBox newTagPane = new CustomVBox("New tag:",0);
 		CustomHBox tagNamePane = new CustomHBox(10);
 		TextField newTagField = new TextField();
 		Button btNewTag = new Button("New");
+
 		tagNamePane.getChildren().addAll(Arrays.asList(newTagField, btNewTag));
 		newTagPane.getChildren().add(tagNamePane);
 		FlowPane tags = new FlowPane(5,5);
-		tags.getChildren().addAll(Arrays.asList(new Label("tag1"), new Label("tag1"), new Label("tag1"),new Label("tag1"), new Label("tag1"),new Label("tag1"), new Label("tag1"),new Label("tag1"), new Label("tag1"), new Label("tag1"), new Label("tag1"),new Label("tag1"), new Label("tag1"),new Label("tag1"), new Label("tag1"),new Label("tag1"), new Label("tag1")));
+		btNewTag.setOnAction((event) ->{
+		    Label label = new Label(newTagField.getText());
+
+
+		    // Set the click event handler for the label
+		    label.setOnMouseClicked(labelevent -> {
+		        // Get the text from the label that was clicked and print it
+		        System.out.println("Clicked label: " + ((Label) labelevent.getSource()).getText());
+		    });
+			
+		    tags.getChildren().add(label);
+			newTagField.clear();
+		});
 		rightColumn.getChildren().addAll(Arrays.asList(tags, newTagPane));
 		
 		leftColumn.addNodes(Arrays.asList(searchPane));
